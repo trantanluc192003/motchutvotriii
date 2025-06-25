@@ -2,94 +2,94 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>Những điều vô tri</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gửi Thảo nè</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
-      background-color: #ffccdd;
+      padding: 0;
+      background-color: #ffe6f0;
       font-family: 'Courier New', monospace;
-      text-align: center;
     }
 
-    .center,
-    #video1Section,
-    #video2Section {
+    .center-screen {
+      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-    }
-
-    #introScreen .hidden,
-    #video1Section .hidden {
-      display: none;
+      text-align: center;
+      padding: 20px;
     }
 
     #helloGif {
-      width: 300px;
-      max-width: 90%;
+      width: 250px;
+      max-width: 80%;
+      display: none;
     }
 
-    #typeText {
-      font-size: 1.2em;
+    #typewriter {
+      font-size: 1.4em;
       margin-top: 20px;
-      border-right: 2px solid #d63384;
       white-space: nowrap;
       overflow: hidden;
+      border-right: 2px solid #d63384;
+      color: #d63384;
       width: 0;
       display: none;
     }
 
     @keyframes typing {
-      from {
-        width: 0;
-      }
-      to {
-        width: 100%;
-      }
+      from { width: 0 }
+      to { width: 100% }
     }
 
     @keyframes blink {
-      50% {
-        border-color: transparent;
-      }
+      50% { border-color: transparent; }
     }
 
     .button {
-      margin-top: 30px;
-      padding: 12px 24px;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 20px;
       font-size: 1em;
       background-color: #ff66a3;
       color: white;
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      animation: blinkBtn 1s infinite;
       display: none;
+      animation: blinkBtn 1s infinite;
+      z-index: 10;
     }
 
     @keyframes blinkBtn {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.5;
-      }
+      0%, 100% { opacity: 1 }
+      50% { opacity: 0.5 }
+    }
+
+    #videoContainer, #video2Container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100vh;
     }
 
     video {
       width: 90%;
-      max-width: 600px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #999;
+      max-width: 500px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #999;
     }
 
-    .text {
-      font-size: 1.3em;
-      color: #333;
+    .text-message {
       margin-top: 20px;
+      font-size: 1.2em;
+      color: #d63384;
       display: none;
     }
   </style>
@@ -97,85 +97,84 @@
 <body>
 
   <!-- Màn hình mở đầu -->
-  <div class="center" id="introScreen">
-    <img src="hello.gif" id="helloGif" alt="Xin chào" />
-    <div id="typeText">Ui ui ui nay bạn Thảo ghé thăm kìa, phải đi chuẩn bị gì đó thuii !!!</div>
-    <button id="startBtn" class="button">Ấn vào đây để xem bất ngờ nèe</button>
+  <div class="center-screen" id="initialScreen">
+    <img id="helloGif" src="hello.gif" alt="Hello GIF" />
+    <p id="typewriter">Ui ui ui nay bạn Thảo ghé thăm kìa, phải đi chuẩn bị gì đó thuii !!!</p>
+    <button id="nextBtn" class="button">Ấn vào đây để xem bất ngờ nèe</button>
   </div>
 
-  <!-- Video 1 -->
-  <div id="video1Section" class="hidden">
-    <video id="video1" src="leuleu.mp4" controls loop></video>
-    <div id="video1Text1" class="text">He he he =)))</div>
-    <div id="video1Text2" class="text">Tui giỡn xíu á, Thảo ấn vào đây để xem tiếp nè</div>
-    <button id="toVideo2Btn" class="button">Ấn vào đây nè</button>
+  <!-- Màn hình video 1 -->
+  <div id="videoContainer">
+    <video id="video1" src="leuleu.mp4" loop muted playsinline></video>
+    <p id="text1" class="text-message">He he he =)))</p>
+    <p id="text2" class="text-message">Tui giỡn xíu á, Thảo ấn vào đây để xem tiếp nè</p>
+    <button id="continueBtn" class="button">Ấn vào đây nè</button>
   </div>
 
-  <!-- Video 2 -->
-  <div id="video2Section" class="hidden">
-    <video id="video2" src="nhacremix.mp4" controls></video>
+  <!-- Màn hình video 2 -->
+  <div id="video2Container">
+    <video id="video2" src="nhacremix.mp4" controls loop></video>
   </div>
 
   <script>
-    const introScreen = document.getElementById('introScreen');
-    const typeText = document.getElementById('typeText');
-    const startBtn = document.getElementById('startBtn');
+    const helloGif = document.getElementById('helloGif');
+    const typewriter = document.getElementById('typewriter');
+    const nextBtn = document.getElementById('nextBtn');
 
-    const video1Section = document.getElementById('video1Section');
-    const video2Section = document.getElementById('video2Section');
+    const initialScreen = document.getElementById('initialScreen');
+    const videoContainer = document.getElementById('videoContainer');
+    const video2Container = document.getElementById('video2Container');
 
     const video1 = document.getElementById('video1');
-    const text1 = document.getElementById('video1Text1');
-    const text2 = document.getElementById('video1Text2');
-    const toVideo2Btn = document.getElementById('toVideo2Btn');
+    const video2 = document.getElementById('video2');
 
-    // Hiệu ứng mở đầu
+    const text1 = document.getElementById('text1');
+    const text2 = document.getElementById('text2');
+    const continueBtn = document.getElementById('continueBtn');
+
     window.addEventListener('load', () => {
-      setTimeout(() => {
-        typeText.style.display = 'inline-block';
-        typeText.style.animation = 'typing 4s steps(60,end), blink 0.7s step-end infinite';
-      }, 2000);
+      helloGif.style.display = 'block';
 
       setTimeout(() => {
-        startBtn.style.display = 'inline-block';
-      }, 7000);
+        typewriter.style.display = 'inline-block';
+        typewriter.style.animation = 'typing 3s steps(60, end) forwards, blink 0.7s step-end infinite';
+      }, 1000);
+
+      setTimeout(() => {
+        nextBtn.style.display = 'inline-block';
+      }, 4000);
     });
 
-    // Nhấn nút để bật video 1
-    startBtn.addEventListener('click', () => {
-      introScreen.style.display = 'none';
-      video1Section.classList.remove('hidden');
+    nextBtn.addEventListener('click', () => {
+      // Ẩn màn hình chào
+      initialScreen.style.display = 'none';
 
-      video1.play().catch(console.warn);
+      // Hiện video 1
+      videoContainer.style.display = 'flex';
+      video1.muted = false;
+      video1.play();
 
-      // Hiện dòng "He he he =)))" sau 5 giây
+      // Sau 5s hiện chữ
       setTimeout(() => {
         text1.style.display = 'block';
       }, 5000);
 
-      // Sau vòng lặp đầu tiên → hiện dòng "Tui giỡn..." và nút
-      let firstLooped = false;
-      video1.addEventListener('timeupdate', function onLoopDetect() {
-        if (!firstLooped && video1.currentTime < 0.2 && !video1.paused) {
-          firstLooped = true;
-
-          text2.style.display = 'block';
-          toVideo2Btn.style.display = 'inline-block';
-
-          video1.removeEventListener('timeupdate', onLoopDetect);
-        }
-      });
+      // Sau 8s hiện dòng 2 và nút
+      setTimeout(() => {
+        text2.style.display = 'block';
+        continueBtn.style.display = 'inline-block';
+      }, 8000);
     });
 
-    // Nhấn nút để chuyển sang video 2
-    toVideo2Btn.addEventListener('click', () => {
+    continueBtn.addEventListener('click', () => {
+      // Ẩn video 1 và các chữ
       video1.pause();
       video1.currentTime = 0;
+      videoContainer.style.display = 'none';
 
-      video1Section.style.display = 'none';
-      video2Section.classList.remove('hidden');
-
-      document.getElementById('video2').play().catch(console.warn);
+      // Hiện video 2
+      video2Container.style.display = 'flex';
+      video2.play();
     });
   </script>
 </body>
