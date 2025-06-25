@@ -7,7 +7,7 @@
   <style>
     body {
       margin: 0;
-      background-color: #fce6ed;
+      background-color: #f5e1e7;
       font-family: 'Courier New', monospace;
       overflow: hidden;
       text-align: center;
@@ -100,8 +100,8 @@
 
   <!-- Video 1 -->
   <div id="video1Section">
-    <video id="video1" src="leuleu.mp4" controls></video>
-    <div id="video1Text1" class="text">He he he >.<</div>
+    <video id="video1" src="leuleu.mp4" controls loop></video>
+    <div id="video1Text1" class="text">He he he =)))</div>
     <div id="video1Text2" class="text">Tui giỡn xíu á, Thảo ấn vào đây để xem tiếp nè</div>
     <button id="toVideo2Btn" class="button">Ấn vào đây nè</button>
   </div>
@@ -127,7 +127,7 @@
     const text2 = document.getElementById("video1Text2");
     const toVideo2Btn = document.getElementById("toVideo2Btn");
 
-    // Mở đầu
+    // Giao diện chào ban đầu
     window.addEventListener("load", () => {
       setTimeout(() => {
         typeText.style.display = "inline-block";
@@ -144,9 +144,9 @@
       introScreen.style.display = "none";
       video1Section.style.display = "flex";
 
-      // Phát video có tiếng sau tương tác
       video1.play().catch(err => console.warn("Không phát video1:", err));
 
+      // Hiện từng phần sau thời gian tương ứng
       setTimeout(() => text1.style.display = "block", 5000);
       setTimeout(() => {
         text2.style.display = "block";
@@ -154,7 +154,7 @@
       }, 8000);
     });
 
-    // Sang video 2
+    // Chuyển sang video 2
     toVideo2Btn.addEventListener("click", () => {
       video1.pause();
       video1.currentTime = 0;
