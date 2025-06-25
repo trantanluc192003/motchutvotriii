@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Gửi bạn Thảo</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #ffccdd;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    #helloSection, #videoSection1, #videoSection2 {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #helloSection {
+      display: flex;
+    }
+
+    img {
+      max-height: 60vh;
+      margin-top: 30px;
+    }
+
+    .typing {
+      font-size: 1.2rem;
+      color: #8b0000;
+      margin-top: 20px;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid black;
+      width: 0;
+      animation: typing 5s steps(60) forwards, blink 0.7s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    .btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      padding: 12px 20px;
+      background-color: #ff6699;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      animation: blinkBtn 1s infinite;
+    }
+
+    @keyframes blinkBtn {
+      0%, 100% { opacity: 1 }
+      50% { opacity: 0.4 }
+    }
+
+    video {
+      max-width: 80%;
+      border-radius: 12px;
+    }
+
+    .text {
+      color: #333;
+      font-size: 1.5rem;
+      margin-top: 20px;
+      display: none;
+    }
+
+    #nextBtn {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mở đầu với ảnh hello.gif và văn bản -->
+  <div id="helloSection">
+    <div>
+      <img src="hello.gif" alt="Xin chào" />
+      <div class="typing" id="introText">Ui ui ui nay bạn Thảo ghé thăm kìa, phải đi chuẩn bị gì đó thuii !!!</div>
+    </div>
+  </div>
+
+  <!-- Nút chuyển -->
+  <button id="startBtn" class="btn" style="display: none;">Ấn vào đây để xem bất ngờ nèe</button>
+
+  <!-- Video 1 -->
+  <div id="videoSection1">
+    <video id="video1" src="leuleu.mp4" autoplay loop muted></video>
+    <div class="text" id="text1">He he he =)))</div>
+    <div class="text" id="text2">Tui giỡn xíu á, Thảo ấn vào đây để xem tiếp nè</div>
+    <button id="nextBtn" class="btn">Ấn vào đây nè</button>
+  </div>
+
+  <!-- Video 2 -->
+  <div id="videoSection2">
+    <video id="video2" src="nhacremix.mp4" autoplay loop controls></video>
+  </div>
+
+  <script>
+    const helloSection = document.getElementById('helloSection');
+    const startBtn = document.getElementById('startBtn');
+    const videoSection1 = document.getElementById('videoSection1');
+    const video1 = document.getElementById('video1');
+    const text1 = document.getElementById('text1');
+    const text2 = document.getElementById('text2');
+    const nextBtn = document.getElementById('nextBtn');
+    const videoSection2 = document.getElementById('videoSection2');
+    const video2 = document.getElementById('video2');
+
+    // Hiện nút sau 2 giây
+    setTimeout(() => {
+      startBtn.style.display = 'block';
+    }, 7000); // sau khi typing xong (5s) + chờ 2s
+
+    // Khi ấn nút đầu tiên
+    startBtn.addEventListener('click', () => {
+      helloSection.style.display = 'none';
+      startBtn.style.display = 'none';
+      videoSection1.style.display = 'flex';
+      video1.play();
+
+      setTimeout(() => {
+        text1.style.display = 'block';
+      }, 5000);
+
+      setTimeout(() => {
+        text2.style.display = 'block';
+        nextBtn.style.display = 'block';
+      }, 8000);
+    });
+
+    // Khi ấn nút thứ hai
+    nextBtn.addEventListener('click', () => {
+      video1.pause();
+      video1.currentTime = 0;
+      videoSection1.style.display = 'none';
+      text1.style.display = 'none';
+      text2.style.display = 'none';
+      nextBtn.style.display = 'none';
+
+      videoSection2.style.display = 'flex';
+      video2.play();
+    });
+  </script>
+</body>
+</html>
