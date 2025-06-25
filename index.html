@@ -51,7 +51,7 @@
 
     .button {
       position: fixed;
-      bottom: 20px;
+      bottom: 80px; /* nâng cao hơn so với mặc định */
       right: 20px;
       padding: 10px 20px;
       font-size: 1em;
@@ -72,11 +72,13 @@
 
     #videoContainer, #video2Container {
       display: none;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
-      text-align: center;
+      text-align: left;
       height: 100vh;
+      padding: 20px;
+      gap: 30px;
     }
 
     video {
@@ -86,8 +88,13 @@
       box-shadow: 0 0 15px #999;
     }
 
+    .text-group {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
     .text-message {
-      margin-top: 20px;
       font-size: 1.2em;
       color: #d63384;
       display: none;
@@ -106,13 +113,15 @@
   <!-- Màn hình video 1 -->
   <div id="videoContainer">
     <video id="video1" src="leuleu.mp4" loop muted playsinline></video>
-    <p id="text1" class="text-message">He he he =)))</p>
-    <p id="text2" class="text-message">Tui giỡn xíu á, Thảo ấn vào đây để xem tiếp nè</p>
-    <button id="continueBtn" class="button">Ấn vào đây nè</button>
+    <div class="text-group">
+      <p id="text1" class="text-message">He he he =)))</p>
+      <p id="text2" class="text-message">Tui giỡn xíu á, Thảo ấn vào đây để xem tiếp nè</p>
+      <button id="continueBtn" class="button" style="position: static; align-self: start;">Ấn vào đây nè</button>
+    </div>
   </div>
 
   <!-- Màn hình video 2 -->
-  <div id="video2Container">
+  <div id="video2Container" class="center-screen">
     <video id="video2" src="nhacremix.mp4" controls loop></video>
   </div>
 
@@ -167,12 +176,10 @@
     });
 
     continueBtn.addEventListener('click', () => {
-      // Ẩn video 1 và các chữ
       video1.pause();
       video1.currentTime = 0;
       videoContainer.style.display = 'none';
 
-      // Hiện video 2
       video2Container.style.display = 'flex';
       video2.play();
     });
