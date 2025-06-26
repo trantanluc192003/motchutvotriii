@@ -195,10 +195,7 @@
       videoContainer.style.display = 'flex';
       video1.play();
 
-      setTimeout(() => {
-        text1.style.display = 'block';
-      }, 5000);
-
+      setTimeout(() => { text1.style.display = 'block'; }, 5000);
       setTimeout(() => {
         text2.style.display = 'block';
         continueBtn.style.display = 'inline-block';
@@ -206,10 +203,8 @@
     });
 
     continueBtn.addEventListener('click', () => {
-      video1.pause();
-      video1.currentTime = 0;
+      video1.pause(); video1.currentTime = 0;
       videoContainer.style.display = 'none';
-
       video2Container.style.display = 'flex';
       video2.play();
     });
@@ -219,10 +214,8 @@
     });
 
     nextToVid3Btn.addEventListener('click', () => {
-      video2.pause();
-      video2.currentTime = 0;
+      video2.pause(); video2.currentTime = 0;
       video2Container.style.display = 'none';
-
       video3Container.style.display = 'flex';
       video3.play();
     });
@@ -232,35 +225,35 @@
     });
 
     nextToVid4Btn.addEventListener('click', () => {
-      video3.pause();
-      video3.currentTime = 0;
+      video3.pause(); video3.currentTime = 0;
       video3Container.style.display = 'none';
-
       video4Container.style.display = 'flex';
       video4.play();
-    });
 
-    video4.addEventListener('ended', () => {
-      nextToVid5Btn.style.display = 'inline-block';
+      // Hiện button 5 sau 90 giây
+      setTimeout(() => {
+        nextToVid5Btn.style.display = 'inline-block';
+      }, 90000);
     });
 
     nextToVid5Btn.addEventListener('click', () => {
-      video4.pause();
-      video4.currentTime = 0;
+      video4.pause(); video4.currentTime = 0;
       video4Container.style.display = 'none';
+      nextToVid5Btn.style.display = 'none';
 
       video5Container.style.display = 'flex';
       video5.play();
-    });
 
-    video5.addEventListener('ended', () => {
-      nextToVid6Btn.style.display = 'inline-block';
+      // Hiện button 6 sau 22 giây
+      setTimeout(() => {
+        nextToVid6Btn.style.display = 'inline-block';
+      }, 22000);
     });
 
     nextToVid6Btn.addEventListener('click', () => {
-      video5.pause();
-      video5.currentTime = 0;
+      video5.pause(); video5.currentTime = 0;
       video5Container.style.display = 'none';
+      nextToVid6Btn.style.display = 'none';
 
       video6Container.style.display = 'flex';
       video6.play();
