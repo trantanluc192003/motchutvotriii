@@ -70,7 +70,7 @@
       50% { opacity: 0.5 }
     }
 
-    .videoContainer {
+    #videoContainer, #video2Container, #video3Container, #video4Container, #video5Container, #video6Container {
       display: none;
       flex-direction: row;
       align-items: center;
@@ -102,43 +102,51 @@
   </style>
 </head>
 <body>
+
+  <!-- Màn hình mở đầu -->
   <div class="center-screen" id="initialScreen">
     <img id="helloGif" src="hello.gif" alt="Hello GIF" />
     <p id="typewriter">Ui ui ui nay bạn Thảo ghé thăm kìa, phải đi chuẩn bị gì đó thuii !!!</p>
     <button id="nextBtn" class="button">Ấn vào đây để xem bất ngờ nèe</button>
   </div>
 
-  <div id="videoContainer1" class="videoContainer">
-    <video id="video1" src="leuleu.mp4"></video>
+  <!-- Video 1 -->
+  <div id="videoContainer">
+    <video id="video1" src="leuleu.mp4" playsinline></video>
     <div class="text-group">
       <p id="text1" class="text-message">He he he =)))</p>
       <p id="text2" class="text-message">Tui giỡn xíu á, Thảo ấn vào đây để xem tiếp nè</p>
-      <button id="btn2" class="button" style="position: static; align-self: start;">Ấn vào đây nè</button>
+      <button id="continueBtn" class="button" style="position: static; align-self: start;">Ấn vào đây nè</button>
     </div>
   </div>
 
-  <div id="videoContainer2" class="center-screen">
+  <!-- Video 2 -->
+  <div id="video2Container" class="center-screen">
     <video id="video2" src="nhacremix.mp4"></video>
-    <button id="btn3" class="button">Còn nữa nè</button>
+    <button id="nextToVid3Btn" class="button">Còn nữa nè</button>
   </div>
 
-  <div id="videoContainer3" class="center-screen">
+  <!-- Video 3 -->
+  <div id="video3Container" class="center-screen">
     <video id="video3" src="tanghoa.mp4"></video>
-    <button id="btn4" class="button">Người đẹp nghe tôi hát hơm</button>
+    <button id="nextToVid4Btn" class="button">Người đẹp nghe tôi hát hơm</button>
   </div>
 
-  <div id="videoContainer4" class="center-screen">
-    <video id="video4" src="mrmsc.mp4"></video>
-    <button id="btn5" class="button">Nghe thêm bài nữa nè</button>
+  <!-- Video 4 -->
+  <div id="video4Container" class="center-screen">
+    <video id="video4" src="mrmsc.mp4" controls loop></video>
+    <button id="nextToVid5Btn" class="button">Nghe thêm bài nữa nè</button>
   </div>
 
-  <div id="videoContainer5" class="center-screen">
-    <video id="video5" src="ccyld.mp4"></video>
-    <button id="btn6" class="button">Bài cuối chill chill đi haa</button>
+  <!-- Video 5 -->
+  <div id="video5Container" class="center-screen">
+    <video id="video5" src="ccyld.mp4" controls loop></video>
+    <button id="nextToVid6Btn" class="button">Bài cuối chill chill đi haa</button>
   </div>
 
-  <div id="videoContainer6" class="center-screen">
-    <video id="video6" src="nhacchill.mp4" loop autoplay></video>
+  <!-- Video 6 -->
+  <div id="video6Container" class="center-screen">
+    <video id="video6" src="nhacchill.mp4" controls autoplay loop></video>
   </div>
 
   <script>
@@ -146,15 +154,28 @@
     const typewriter = document.getElementById('typewriter');
     const nextBtn = document.getElementById('nextBtn');
 
-    const videoContainers = [1, 2, 3, 4, 5, 6].map(i => document.getElementById(`videoContainer${i}`));
-    const videos = [1, 2, 3, 4, 5, 6].map(i => document.getElementById(`video${i}`));
-    const btn2 = document.getElementById('btn2');
-    const btn3 = document.getElementById('btn3');
-    const btn4 = document.getElementById('btn4');
-    const btn5 = document.getElementById('btn5');
-    const btn6 = document.getElementById('btn6');
+    const initialScreen = document.getElementById('initialScreen');
+    const videoContainer = document.getElementById('videoContainer');
+    const video2Container = document.getElementById('video2Container');
+    const video3Container = document.getElementById('video3Container');
+    const video4Container = document.getElementById('video4Container');
+    const video5Container = document.getElementById('video5Container');
+    const video6Container = document.getElementById('video6Container');
+
+    const video1 = document.getElementById('video1');
+    const video2 = document.getElementById('video2');
+    const video3 = document.getElementById('video3');
+    const video4 = document.getElementById('video4');
+    const video5 = document.getElementById('video5');
+    const video6 = document.getElementById('video6');
+
     const text1 = document.getElementById('text1');
     const text2 = document.getElementById('text2');
+    const continueBtn = document.getElementById('continueBtn');
+    const nextToVid3Btn = document.getElementById('nextToVid3Btn');
+    const nextToVid4Btn = document.getElementById('nextToVid4Btn');
+    const nextToVid5Btn = document.getElementById('nextToVid5Btn');
+    const nextToVid6Btn = document.getElementById('nextToVid6Btn');
 
     window.addEventListener('load', () => {
       helloGif.style.display = 'block';
@@ -169,70 +190,81 @@
       }, 4000);
     });
 
-    nextBtn.onclick = () => {
-      document.getElementById('initialScreen').style.display = 'none';
-      videoContainers[0].style.display = 'flex';
-      videos[0].play();
+    nextBtn.addEventListener('click', () => {
+      initialScreen.style.display = 'none';
+      videoContainer.style.display = 'flex';
+      video1.play();
 
-      setTimeout(() => text1.style.display = 'block', 5000);
+      setTimeout(() => {
+        text1.style.display = 'block';
+      }, 5000);
+
       setTimeout(() => {
         text2.style.display = 'block';
-        btn2.style.display = 'inline-block';
+        continueBtn.style.display = 'inline-block';
       }, 8000);
-    }
-
-    btn2.onclick = () => {
-      videos[0].pause();
-      videoContainers[0].style.display = 'none';
-      videoContainers[1].style.display = 'flex';
-      videos[1].play();
-    }
-
-    videos[1].addEventListener('ended', () => {
-      btn3.style.display = 'inline-block';
     });
 
-    btn3.onclick = () => {
-      videos[1].pause();
-      videoContainers[1].style.display = 'none';
-      videoContainers[2].style.display = 'flex';
-      videos[2].play();
-    }
+    continueBtn.addEventListener('click', () => {
+      video1.pause();
+      video1.currentTime = 0;
+      videoContainer.style.display = 'none';
 
-    videos[2].addEventListener('ended', () => {
-      btn4.style.display = 'inline-block';
+      video2Container.style.display = 'flex';
+      video2.play();
     });
 
-    btn4.onclick = () => {
-      videos[2].pause();
-      videoContainers[2].style.display = 'none';
-      videoContainers[3].style.display = 'flex';
-      videos[3].play();
-    }
-
-    videos[3].addEventListener('ended', () => {
-      btn5.style.display = 'inline-block';
+    video2.addEventListener('ended', () => {
+      nextToVid3Btn.style.display = 'inline-block';
     });
 
-    btn5.onclick = () => {
-      videos[3].pause();
-      videoContainers[3].style.display = 'none';
-      videoContainers[4].style.display = 'flex';
-      videos[4].play();
-    }
+    nextToVid3Btn.addEventListener('click', () => {
+      video2.pause();
+      video2.currentTime = 0;
+      video2Container.style.display = 'none';
 
-    videos[4].addEventListener('ended', () => {
-      btn6.style.display = 'inline-block';
-      videos[4].loop = true;
-      videos[4].play();
+      video3Container.style.display = 'flex';
+      video3.play();
     });
 
-    btn6.onclick = () => {
-      videos[4].pause();
-      videoContainers[4].style.display = 'none';
-      videoContainers[5].style.display = 'flex';
-      videos[5].play();
-    }
+    video3.addEventListener('ended', () => {
+      nextToVid4Btn.style.display = 'inline-block';
+    });
+
+    nextToVid4Btn.addEventListener('click', () => {
+      video3.pause();
+      video3.currentTime = 0;
+      video3Container.style.display = 'none';
+
+      video4Container.style.display = 'flex';
+      video4.play();
+    });
+
+    video4.addEventListener('ended', () => {
+      nextToVid5Btn.style.display = 'inline-block';
+    });
+
+    nextToVid5Btn.addEventListener('click', () => {
+      video4.pause();
+      video4.currentTime = 0;
+      video4Container.style.display = 'none';
+
+      video5Container.style.display = 'flex';
+      video5.play();
+    });
+
+    video5.addEventListener('ended', () => {
+      nextToVid6Btn.style.display = 'inline-block';
+    });
+
+    nextToVid6Btn.addEventListener('click', () => {
+      video5.pause();
+      video5.currentTime = 0;
+      video5Container.style.display = 'none';
+
+      video6Container.style.display = 'flex';
+      video6.play();
+    });
   </script>
 </body>
 </html>
