@@ -296,25 +296,39 @@
       video6.play();
     });
     // Hiệu ứng đánh máy từng chữ
-    function typeLineRandomSpeed(elementId, text, delay, callback) {
+    function typeLineRandomSpeedChunks(elementId, textChunks, initialDelay = 0, callback) {
       const el = document.getElementById(elementId);
-      el.classList.add("typewriter-cursor"); // Thêm con trỏ
+      el.classList.add("typewriter-cursor");
       el.style.display = 'block';
       el.textContent = '';
+
       let i = 0;
 
-      function type() {
-        if (i < text.length) {
-          el.textContent = text.substring(0, i + 1);
-          i++;
-          setTimeout(type, 70 + Math.random() * 120); // gõ ngập ngừng
+      function typeChunk() {
+        if (i < textChunks.length) {
+          let chunk = textChunks[i];
+          let j = 0;
+
+          function typeChar() {
+            if (j < chunk.length) {
+              el.textContent += chunk[j];
+              j++;
+              setTimeout(typeChar, 50 + Math.random() * 50);
+            } else {
+              i++;
+              el.textContent += ' ';
+              setTimeout(typeChunk, 600 + Math.random() * 1000); // ngập ngừng sau cụm
+            }
+          }
+
+          typeChar();
         } else {
-          el.classList.remove("typewriter-cursor"); // Gỡ con trỏ sau khi gõ xong
+          el.classList.remove("typewriter-cursor");
           if (callback) callback();
         }
       }
 
-      setTimeout(type, delay);
+      setTimeout(typeChunk, initialDelay);
     }
 
     video6.addEventListener('timeupdate', function showPoem() {
@@ -322,12 +336,12 @@
         video6.removeEventListener('timeupdate', showPoem);
         document.getElementById('poemContainer').style.display = 'flex';
 
-        typeLineRandomSpeed("dots", ".....", 0, () => {
-          typeLineRandomSpeed("line1", "Ngoài kia trăng sáng giữa trời,", 300, () => {
-            typeLineRandomSpeed("line2", "Làm sao sánh được nụ cười của em.", 300, () => {
-              typeLineRandomSpeed("line3", "Biết em dù chỉ chưa lâu,", 300, () => {
-                typeLineRandomSpeed("line4", "Nhưng mong em được ngủ êm mỗi ngày.", 300, () => {
-                  typeLineRandomSpeed("finalMessage", "Hãy cười thật tươi lên nhé, chúc em buổi tối vui vẻ ❤", 400);
+        typeLineRandomSpeedChunks("dots", ["....."], 0, () => {
+          typeLineRandomSpeedChunks("line1", ["Ngoài kia", "trăng sáng", "giữa trời,"], 200, () => {
+            typeLineRandomSpeedChunks("line2", ["Làm sao", "sánh được", "nụ cười", "của em."], 200, () => {
+              typeLineRandomSpeedChunks("line3", ["Biết em", "dù chỉ", "chưa lâu,"], 200, () => {
+                typeLineRandomSpeedChunks("line4", ["Nhưng mong em", "được ngủ", "êm mỗi ngày."], 200, () => {
+                  typeLineRandomSpeedChunks("finalMessage", ["Hãy cười thật tươi lên nhé,", "chúc em", "buổi tối", "vui vẻ ❤"], 300);
                 });
               });
             });
