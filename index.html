@@ -154,7 +154,7 @@
 
   <!-- Video 4 -->
   <div id="video4Container" class="center-screen">
-    <video id="video4" src="mrmsc.mp4" controls loop></video>
+    <video id="video4" src="mrmsc2.mp4" controls loop></video>
     <button id="nextToVid5Btn" class="button">Hehe, Thảo thấy tui hát hay thì nghe thêm bài nữa nhaa🥰</button>
   </div>
 
@@ -270,7 +270,7 @@
       // Hiện button 5 sau 90 giây
       setTimeout(() => {
         nextToVid5Btn.style.display = 'inline-block';
-      }, 60000);
+      }, 55000);
     });
 
     nextToVid5Btn.addEventListener('click', () => {
@@ -307,7 +307,7 @@
         if (i < text.length) {
           el.textContent = text.substring(0, i + 1);
           i++;
-          setTimeout(type, 70 + Math.random() * 180); // gõ ngập ngừng
+          setTimeout(type, 70 + Math.random() * 120); // gõ ngập ngừng
         } else {
           el.classList.remove("typewriter-cursor"); // Gỡ con trỏ sau khi gõ xong
           if (callback) callback();
