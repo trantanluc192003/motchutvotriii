@@ -313,11 +313,11 @@
             if (j < chunk.length) {
               el.textContent += chunk[j];
               j++;
-              setTimeout(typeChar, 50 + Math.random() * 500);
+              setTimeout(typeChar, 50 + Math.random() * 50);
             } else {
               i++;
               el.textContent += ' ';
-              setTimeout(typeChunk, 500 + Math.random() * 1000); // ngập ngừng sau cụm
+              setTimeout(typeChunk, 300 + Math.random() * 400); // ngập ngừng sau cụm
             }
           }
 
