@@ -158,6 +158,7 @@
     <video id="video6" src="nhacchill.mp4" controls autoplay loop></video>
   </div>
   <div id="poemContainer" class="poem-box">
+    <p id="dots" class="text-message"></p>
     <p id="line1" class="text-message"></p>
     <p id="line2" class="text-message"></p>
     <p id="line3" class="text-message"></p>
@@ -284,7 +285,7 @@
       video6.play();
     });
     // Hiệu ứng đánh máy từng chữ
-    function typeLine(elementId, text, delay, callback) {
+    function typeLineRandomSpeed(elementId, text, startDelay = 0, callback) {
       const el = document.getElementById(elementId);
       el.style.display = 'block';
       el.textContent = '';
@@ -294,32 +295,34 @@
         if (i < text.length) {
           el.textContent += text.charAt(i);
           i++;
-          setTimeout(type, 50);
+          const delay = 50 + Math.floor(Math.random() * 150); // ngập ngừng ngẫu nhiên
+          setTimeout(type, delay);
         } else if (callback) {
           callback();
         }
       }
 
-      setTimeout(type, delay);
+      setTimeout(type, startDelay);
     }
 
-    // Sau khi video6 phát được 5s thì hiện thơ
     video6.addEventListener('timeupdate', function showPoem() {
-      if (video6.currentTime >= 25) {
+      if (video6.currentTime >= 20) {
         video6.removeEventListener('timeupdate', showPoem);
         document.getElementById('poemContainer').style.display = 'flex';
 
-        typeLine("line1", "Ngoài kia trăng sáng giữa trời,", 0, () => {
-          typeLine("line2", "Sao bằng ánh mắt, nụ cười của em.", 200, () => {
-            typeLine("line3", "Biết em dù chỉ chưa lâu,", 200, () => {
-              typeLine("line4", "Nhưng mong em được ngủ êm mỗi ngày.", 200, () => {
-                typeLine("finalMessage", "Cười thật tươi lên nhé, chúc em buổi tối vui vẻ❤", 300);
+        typeLineRandomSpeed("dots", ".....", 0, () => {
+          typeLineRandomSpeed("line1", "Ngoài kia trăng sáng giữa trời,", 300, () => {
+            typeLineRandomSpeed("line2", "Không bằng ánh mắt, nụ cười của em.", 300, () => {
+              typeLineRandomSpeed("line3", "Biết em dù chỉ chưa lâu,", 300, () => {
+                typeLineRandomSpeed("line4", "Nhưng mong em được ngủ êm mỗi ngày.", 300, () => {
+                  typeLineRandomSpeed("finalMessage", "Hãy cười thật tươi lên nhé, chúc em buổi tối vui vẻ❤", 400);
+                });
               });
             });
           });
         });
       }
-    });  
+    });
   </script>
 </body>
 </html>
