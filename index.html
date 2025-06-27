@@ -103,10 +103,21 @@
       position: absolute;
       top: 50px;
       right: 50px;
-      width: 500px;
+      width: 400px;
       display: none;
       flex-direction: column;
       text-align: left;
+      font-size: 1.0em;
+    }
+    .typewriter-cursor::after {
+      content: '|';
+      animation: blinkCursor 0.8s infinite;
+      margin-left: 2px;
+    }
+
+    @keyframes blinkCursor {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }    
   </style>
 </head>
@@ -285,24 +296,25 @@
       video6.play();
     });
     // Hiệu ứng đánh máy từng chữ
-    function typeLineRandomSpeed(elementId, text, startDelay = 0, callback) {
+    function typeLineRandomSpeed(elementId, text, delay, callback) {
       const el = document.getElementById(elementId);
+      el.classList.add("typewriter-cursor"); // Thêm con trỏ
       el.style.display = 'block';
       el.textContent = '';
       let i = 0;
 
       function type() {
         if (i < text.length) {
-          el.textContent += text.charAt(i);
+          el.textContent = text.substring(0, i + 1);
           i++;
-          const delay = 50 + Math.floor(Math.random() * 150); // ngập ngừng ngẫu nhiên
-          setTimeout(type, delay);
-        } else if (callback) {
-          callback();
+          setTimeout(type, 70 + Math.random() * 180); // gõ ngập ngừng
+        } else {
+          el.classList.remove("typewriter-cursor"); // Gỡ con trỏ sau khi gõ xong
+          if (callback) callback();
         }
       }
 
-      setTimeout(type, startDelay);
+      setTimeout(type, delay);
     }
 
     video6.addEventListener('timeupdate', function showPoem() {
