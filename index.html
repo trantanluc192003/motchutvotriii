@@ -305,7 +305,7 @@
 
     // Sau khi video6 phát được 5s thì hiện thơ
     video6.addEventListener('timeupdate', function showPoem() {
-      if (video6.currentTime >= 5) {
+      if (video6.currentTime >= 25) {
         video6.removeEventListener('timeupdate', showPoem);
         document.getElementById('poemContainer').style.display = 'flex';
 
