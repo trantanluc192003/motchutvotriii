@@ -135,7 +135,7 @@
   <!-- Video 4 -->
   <div id="video4Container" class="center-screen">
     <video id="video4" src="mrmsc.mp4" controls loop></video>
-    <button id="nextToVid5Btn" class="button">Thấy tui hát hay thì nghe thêm bài nữa nhaa🥰</button>
+    <button id="nextToVid5Btn" class="button">Hehe, Thảo thấy tui hát hay thì nghe thêm bài nữa nhaa🥰</button>
   </div>
 
   <!-- Video 5 -->
@@ -148,6 +148,15 @@
   <div id="video6Container" class="center-screen">
     <video id="video6" src="nhacchill.mp4" controls autoplay loop></video>
   </div>
+  <div id="poemContainer" class="text-group" style="display: none; margin-left: 40px;">
+    <p id="line1" class="text-message"></p>
+    <p id="line2" class="text-message"></p>
+    <p id="line3" class="text-message"></p>
+    <p id="line4" class="text-message"></p>
+    <p id="spacer1" class="text-message" style="height: 20px;"></p>
+    <p id="spacer2" class="text-message" style="height: 20px;"></p>
+    <p id="finalMessage" class="text-message"></p>
+  </div>  
 
   <script>
     const helloGif = document.getElementById('helloGif');
@@ -169,6 +178,10 @@
     const video5 = document.getElementById('video5');
     const video6 = document.getElementById('video6');
 
+    [video1, video2, video3, video4, video5, video6].forEach(video => {
+      video.volume = 0.3;
+    });  
+
     const text1 = document.getElementById('text1');
     const text2 = document.getElementById('text2');
     const continueBtn = document.getElementById('continueBtn');
@@ -177,6 +190,7 @@
     const nextToVid5Btn = document.getElementById('nextToVid5Btn');
     const nextToVid6Btn = document.getElementById('nextToVid6Btn');
 
+  
     window.addEventListener('load', () => {
       helloGif.style.display = 'block';
 
@@ -260,6 +274,43 @@
       video6Container.style.display = 'flex';
       video6.play();
     });
+    // Hiệu ứng đánh máy từng chữ
+    function typeLine(elementId, text, delay, callback) {
+      const el = document.getElementById(elementId);
+      el.style.display = 'block';
+      el.textContent = '';
+      let i = 0;
+
+      function type() {
+        if (i < text.length) {
+          el.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, 50);
+        } else if (callback) {
+          callback();
+        }
+      }
+
+      setTimeout(type, delay);
+    }
+
+    // Sau khi video6 phát được 5s thì hiện thơ
+    video6.addEventListener('timeupdate', function showPoem() {
+      if (video6.currentTime >= 5) {
+        video6.removeEventListener('timeupdate', showPoem);
+        document.getElementById('poemContainer').style.display = 'flex';
+
+        typeLine("line1", "Ngoài kia trăng sáng giữa trời,", 0, () => {
+          typeLine("line2", "Sao bằng ánh mắt, nụ cười của em.", 200, () => {
+            typeLine("line3", "Biết em dù chỉ chưa lâu,", 200, () => {
+              typeLine("line4", "Nhưng mong em được ngủ êm mỗi ngày.", 200, () => {
+                typeLine("finalMessage", "Chúc em buổi tối vui vẻ nhé", 300);
+              });
+            });
+          });
+        });
+      }
+    });  
   </script>
 </body>
 </html>
