@@ -220,8 +220,10 @@
       video3.play();
     });
 
-    video3.addEventListener('ended', () => {
-      nextToVid4Btn.style.display = 'inline-block';
+    video3.addEventListener('play', () => {
+      setTimeout(() => {
+        nextToVid4Btn.style.display = 'inline-block';
+      }, 12000); // sau 12 giây
     });
 
     nextToVid4Btn.addEventListener('click', () => {
